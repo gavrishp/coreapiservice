@@ -8,12 +8,22 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/gavrishp/coreapiservicetest/internal/common/models"
 	"github.com/gin-gonic/gin"
+	"github.com/stretchr/testify/mock"
 )
 
 func TestAddUser(t *testing.T) {
 	t.Run("Add User Successfully", func(t *testing.T) {
 		// Arrange
+		mockUser := &models.User{
+			Name:        "Bob",
+			Role:        "Admin",
+			Description: "Master Admin",
+		}
+
+		mockUserController := new(mock.userService().Return())
+
 		recorder := httptest.NewRecorder()
 		context, _ := gin.CreateTestContext(recorder)
 
@@ -32,6 +42,8 @@ func TestAddUser(t *testing.T) {
 		}
 
 		context.Request.Body = io.NopCloser(bytes.NewBuffer(jsonbytes))
+
+		// Act
 
 	})
 }
